@@ -19,7 +19,7 @@
 %% ****************************************************************************************************
 % !Mode:: "TeX:UTF-8"
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{litebook}[2024/03/10 v0.1b LiteBook document class]
+\ProvidesClass{litebook}[2024/03/11 v0.1c LiteBook document class]
 \RequirePackage{kvoptions}
 \RequirePackage{etoolbox}
 \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{book}}
