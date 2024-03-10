@@ -19,7 +19,7 @@
 %% ****************************************************************************************************
 % !Mode:: "TeX:UTF-8"
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{litebook}[2024/03/10 v0.1a LiteBook document class]
+\ProvidesClass{litebook}[2024/03/10 v0.1b LiteBook document class]
 \RequirePackage{kvoptions}
 \RequirePackage{etoolbox}
 \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{book}}
@@ -30,7 +30,7 @@
 \geometry{rmargin=1.25 in,lmargin=.75 in,tmargin=1 in,bmargin=1 in}
 
 \RequirePackage{graphics,graphicx}
-\graphicspath{{./figures/}}
+\graphicspath{{./figure/}{./figures/}{./image/}{./images/}{./graphics/}{./graphic/}{./pictures/}{./picture/}}
 
 \RequirePackage{indentfirst}
 \setlength{\parindent}{2ex}
@@ -84,7 +84,7 @@
    \lfoot{}\cfoot{}\rfoot{}
 
 \RequirePackage[most]{tcolorbox}
-\RequirePackage{tikz}
+\RequirePackage{tikz,fontawesome5}
 \usetikzlibrary{arrows,tikzmark,patterns,calc}
 \RequirePackage{fadingimage}
 \tikzset{>=stealth',
@@ -109,9 +109,10 @@ every picture/.append style={
 \begin{titlepage}
     \newgeometry{margin = 0 in}
     \ifcsname @cover\endcsname
+    \UPFadingImage[trim={0 {.9\paperheight} 0 0},clip]{\@cover}
     \LOWFadingImage[trim={0 {.5\paperheight} 0 0},clip]{\@cover}
     \fi
-    \parindent=0pt\vskip12ex
+    \parindent=0pt\vskip75\p@
     \centering\sffamily\bfseries
     \HUge\@title
     \ifcsname @subtitle\endcsname
@@ -122,8 +123,7 @@ every picture/.append style={
     \vskip2ex\Large\@bioinfo\fi
     \ifcsname @press\endcsname\vfill
     \parbox[t]{\textwidth}{\centering
-        \Large\@press\vskip10ex
-    }\fi
+        \Large\@press\vskip75\p@}\fi
     \clearpage
     \vspace*{\fill}
         \Huge\itshape\@title
@@ -163,13 +163,18 @@ every picture/.append style={
 \RequirePackage{physics2,bm,fixdif,derivative,cancel,extarrows,siunitx,nicefrac,nicematrix}
 \usephysicsmodule{ab,braket,diagmat,doubleprod,xmat,ab.legacy,op.legacy}
 \RequirePackage[e]{esvect}
-
 \def\i{\mathrm i}\def\e{\mathrm e}\def\T{\mathsf T}
 
 \theoremstyle{definition}
-\newtheorem{problem}{Problem}[section]
-\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{\sffamily\color{pkgcolor} Definition}[section]
+\newtheorem{theorem}{\sffamily\color{moducolor} Theorem}[section]
+\newtheorem{lemma}{\sffamily\color{moducolor} Lemma}[section]
+\newtheorem{corollary}{\sffamily\color{moducolor}Corollary}[section]
+\newtheorem{postulate}{\sffamily\color{moducolor}Postulate}[section]
+\newtheorem{axiom}{\sffamily\color{moducolor}Axiom}[section]
+\newtheorem{proposition}{\sffamily\color{cmdcolor}Proposition}[section]
+\newtheorem*{example}{\sffamily Example}
+\newtheorem{problem}{\sffamily Problem}[chapter]
 \def\theproblem{\arabic{problem}}
-\newtheorem*{example}{Example}
-\newtheorem*{solution}{Solution}
+\newtheorem*{solution}{\sffamily Solution}
 \numberwithin{equation}{section}
