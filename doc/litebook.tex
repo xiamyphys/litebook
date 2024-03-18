@@ -1,17 +1,19 @@
-% !TEX TS-program = pdflatex
-\documentclass{litebook}
+\documentclass[
+    math     = newtx,
+    thmstyle = mdframed
+]{litebook}
 
-\title{The \pkg{LiteBook} Template}
-\subtitle{Version 0.1c \today}
-\press{The University of Chicago Press}
+\cover{\UPLOWFadingImage[trim={0 {.9\paperheight} 0 0},clip]{cover}
+                        [trim={0 {.5\paperheight} 0 0},clip]{cover}}
+\title{\scshape The \pkg{LiteBook} Template}
+\subtitle{Version 0.2a \today}
 \author{Hsia Mingyu}
 \bioinfo{Hangzhou Dianzi University}
-\cover{Beautiful-realities}
+\press{\scshape\textcolor{teal}{\faIcon{telegram-plane}}Hangzhou in Late Spring 2024}
 
 \begin{document}
-\maketitle
-\frontmatter\tableofcontents\mainmatter
 
+\maketitle\frontmatter\tableofcontents\mainmatter
 \input{cha/cha1.tex}
 \input{cha/scha.tex}
 
