@@ -1,0 +1,49 @@
+\chapter{Appendix: Package \pkg{thmlist}}
+
+This template has preset two \emph{styles} of theorem environment via the \pkg{thmlist} package, you can create a series of environments with the two styles
+\begin{verbatim}
+    \mdflist{theorem,   lemma,        definition,   proposition,    postulate;
+             Theorem,   Lemma,        Definition,   Proposition,    Postulate;
+             DarkGreen, MidnightBlue, MidnightBlue, DarkOliveGreen, Indigo}
+    \amslist{remark,    example,      problem,      solution;
+             Remark,    Example,      Problem,      Solution;
+             DarkRed,   Teal,         Black,        Black}
+\end{verbatim}
+
+You can add the environments like the two commands above as you need. For more information, please refer to the document of the \pkg{thmlist} package. The following are the effects of the two styles.
+
+The next five environments show the style of the \pkg{mdframed} package.
+
+\begin{theorem}[The Theorem Environment]\leavevmode\newline
+    From WikipediA: A theorem is a statement that has been proved, or can be proved.
+\end{theorem}
+
+\begin{lemma}[The Lemma Environment]\leavevmode\newline
+    From WikipediA: In mathematics, informal logic and argument mapping, a lemma (pl.: lemmas or lemmata) is a generally minor, proven proposition which is used as a stepping stone to a larger result. For that reason, it is also known as a ``helping theorem'' or an ``auxiliary theorem''.
+\end{lemma}
+
+\begin{definition}[The Definition Environment]\leavevmode\newline
+    From WikipediA: A definition is used to give a precise meaning to a new term, by describing a condition which unambiguously qualifies what a mathematical term is and is not.
+\end{definition}
+
+\begin{proposition}[The Proposition Environment]\leavevmode\newline
+    From WikipediA: A proposition is a central concept in the philosophy of language, semantics, logic, and related fields, often characterized as the primary bearer of truth or falsity.
+\end{proposition}
+
+\begin{postulate}[The Postulate Environment]\leavevmode\newline
+    From WikipediA: A postulate is a statement everyone agrees to be correct.
+\end{postulate}
+
+The next four environments show the style of the \pkg{amsthm} package.
+
+\begin{remark}[The Remark Environment]\leavevmode\newline
+    From Math StackExchange: The remark device is used for material that is is too long to be included in parentheses, while it deserves greater prominence than a footnote.
+\end{remark}
+
+\example{
+    From Cambridge Dictionary: The example is a way of helping someone to understand something by showing them how it is used.}
+
+\problem{
+    From Springer: A problem is generally considered to be a task, a situation, or person which is difficult to deal with or control due to complexity and intransparency.}
+
+\solution{The quick brown fox jumps over the lazy dog.}

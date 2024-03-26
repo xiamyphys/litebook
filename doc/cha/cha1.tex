@@ -1,13 +1,11 @@
-\chapter{The \pkg{LiteBook} Template}
+\chapter{Introduction to the Template}
 
 \section{The purpose of this package}
+This template provides a streamlined design for typesetting books. Welcome to feedback bugs or ideas via email \href{mailto:xiamyphys@gmail.com}{\ttfamily xiamyphys@gmail.com} or \href{https://github.com/xiamyphys/litebook}{GitHub}.
 
-This template provides a fresh cover and chapter design for book. Welcome to feedback bugs or ideas via email \href{mailto:xiamyphys@gmail.com}{\ttfamily xiamyphys@gmail.com} or \href{https://github.com/xiamyphys/litebook}{GitHub}.
-
-This template is used by me to reformat the textbook \href{https://github.com/xiamyphys/LaTeX-General-Relativity-R.Wald}{\emph{General Relativity, R. Wald}}, and I also use this template to typesetting my notes on \href{https://github.com/xiamyphys/Group-Theory-in-Physics}{\emph{Group Theory in Physics}}. You can download their codes on \href{https://github.com/xiamyphys}{GitHub}.
+This template is used by me to reformat the textbook \href{https://github.com/xiamyphys/LaTeX-General-Relativity-R.Wald}{\emph{General Relativity, R. Wald}}, and I also use this template to typesetting my notes on \href{https://github.com/xiamyphys/Group-Theory-in-Physics}{\emph{Group Theory in Physics}}. You can download them on \href{https://github.com/xiamyphys}{GitHub}.
 
 \section{Installing \pkg{LiteBook} and loading it}
-
 For portable version, simply download latest \verb|litebook.cls| file from \href{https://github.com/xiamyphys/LiteBook}{GitHub} or \href{https://ctan.org/pkg/litebook}{CTAN} and save it under your working directory. This way of installation is simple and convenient, but you have to manually update \verb|.cls| now and then.
 
 However, I strongly suggest that you should use terminal/cmd to implement the commands to update all the packages (and install this package) to the latest version or switch to portable version instead
@@ -18,38 +16,31 @@ However, I strongly suggest that you should use terminal/cmd to implement the co
 If you are in some areas with awful Internet environment (such as GFW), you can choose a proper mirror source or use other means\footnote{Please comply with local network regulations.}. To learn more, please refer to \href{https://tex.stackexchange.com/questions/55437/how-do-i-update-my-tex-distribution}{How do I update my \hologo{TeX} distribution?}
 
 \section{Compatibility}
+The test environments are macOS + Mac\hologo{TeX} 2024 / Overleaf / Ubuntu 22.04.2 and they all work fine for \hologo{pdfLaTeX} and \hologo{XeLaTeX} compilers. Windows and Unix platforms' unknown. The compiling time of current document via \hologo{pdfLaTeX} compiler is about \verb|1s| on \textsf{MacBook Air M2 8 GB (macOS 14.4.1)} when charging.
 
-The test environments are macOS + Mac\hologo{TeX} 2024 / Overleaf and they all work fine for \hologo{pdfLaTeX} and \hologo{XeLaTeX} compilers. Windows, Linux and Unix platforms' unknown. The compile time of current document via \hologo{pdfLaTeX} compiler is \verb|0.965±0.0019s| on \textsf{MacBook Air M2 8GB (macOS Sonoma 14.4)} when charging.
-
-\section{Cover Information Settings}
-
+\section{Cover configurations}
 There are several lines of information and a cover image on the cover of this document, the corresponding commands are the following
 
 \begin{verbatim}
     \cover{\UPLOWFadingImage[trim={0 {.9\paperheight} 0 0},clip]{cover}
                             [trim={0 {.5\paperheight} 0 0},clip]{cover}}
     \title{\scshape The \pkg{LiteBook} Template}
-    \subtitle{Version 0.2a \today}        \author{Hsia Mingyu}
+    \subtitle{Version 0.2b \today}        \author{Hsia Mingyu}
     \bioinfo{Hangzhou Dianzi University}
     \press{\scshape The University of Chicago Press}
 \end{verbatim}
 
-The same as the \pkg{book} class, the command \cmd{title} could not be omitted, or it will return an error, and there will be a warning if the command \cmd{author} is omitted. The \cmd{cover} can assign the format of the image on the cover and you can adjust the format of the image with the \pkg{fadingimage} package.
+The same as the \pkg{book} class, the macro \cmd{title} could not be omitted, or it will return an error, and there will be a warning if the macro \cmd{author} is omitted. The \cmd{cover} can assign the format of the image on the cover and you can adjust the format of the image with the \pkg{fadingimage} package.
 
-\section{Global options of this template}
-
+\section{Math options of this template}
 \begin{verbatim}
-    \documentclass[<math>,<thmstyle>]{litebook}
+    \documentclass[<math>]{litebook}
 \end{verbatim}
 
-\begin{itemize}
-    \item The \mode{math} option can set the math font to be \mode{newtx} (default) or \mode{mtpro2}.
-    \item The \mode{thmstyle} option can set the style of \pkg{amsthm} environments be the \pkg{mdframed} (default) or \pkg{amsthm}.
-\end{itemize}
+You can set the math font to be \mode{newtx} (default) or \mode{mtpro2}.
 
 \section{Preset packages and commands}
-
-This template has been preset with the following packages:
+This template has preset with the following packages:
 \begin{table}[!ht]
     \centering
     \begin{tabular}{l l l l l l l l}
@@ -58,7 +49,7 @@ This template has been preset with the following packages:
         \midrule
         \pkg{nicematrix} & \pkg{physics2} & \pkg{refstyle} & \pkg{siunitx} & \pkg{booktabs} & \pkg{diagbox} & \pkg{fontawesome5} & \pkg{geometry}\\
         \midrule
-        \pkg{indentfirst} & \pkg{mdframed} & \pkg{multicol} & \pkg{multirow} & \pkg{setspace} & \pkg{tabularx} & \pkg{tcolorbox} & \pkg{tikz}\\
+        \pkg{indentfirst} & \pkg{mdframed} & \pkg{multicol} & \pkg{multirow} & \pkg{setspace} & \pkg{tabularx} & \pkg{tikz} & \pkg{xcolor}\\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -68,18 +59,18 @@ You can click on them to go to the homepage to view the documentation.
 And commands \verb|\i|, \verb|\e|, \verb|\T| have been defined to input 
 $\i$, $\e$ in roman (non-italic) text and matrix transpose symbol $\T$, which can help you typeset math quickly.
 
-The template has been preset the following reference command via \pkg{refstyle} package: \verb|\eqref{<label>}|, \verb|\figref{<label>}| and \verb|\tabref{<label>}|, you can add other ref commands via \pkg{refstyle} package.
+The template has preset the following commands for different type of references via \pkg{refstyle} package: \verb|\eqref{<label>}|, \verb|\figref{<label>}| and \verb|\tabref{<label>}|, you can add other ref commands via \pkg{refstyle} package.
 
-\section{Equation Test}
-
+\section{Equation test}
 The following is the Schr\"odinger Equation
 \begin{equation}
-    \i\hbar\pdv{}t\Psi(x,t)=\ab[-\frac{\hbar^2}{2m}\frac{\partial^2}{\partial x^2}+V(x,t)]\Psi(x,t)
+    \i\hbar\pdv{}t\Psi(\bm r,t)=\ab[-\frac{\hbar^2}{2m}\nabla^2+V(\bm r,t)]\Psi(\bm r,t)
+    \label{1.7.1}
 \end{equation}
 
-The above equations are the integral formula of the Maxwell's Equations in Gaussian units.
+\Eqref{1.7.1} is the time-dependent Schr\"odinger Equation for the nonrelativistic particle.
 
-\section{Figure and Caption Side by Side Test}
+\section{Figure and caption side by side test}
 \begin{figure}[htbp]
 \begin{minipage}{.32\textwidth}
     \caption{A diagram showing the causal structure of spacetime in special relativity. The ``light cone'' of $p$ rather than a ``surface of simultaneity'' with $p$ now plays a fundamental role in determining the causal relationship of $p$ to other events.}
@@ -107,53 +98,3 @@ The above equations are the integral formula of the Maxwell's Equations in Gauss
 \end{figure}
 
 Here, \figref{1.1} is a diagram showing the causal structure of spacetime in special relativity.
-
-\section{Preset Environments}
-
-\begin{verbatim}
-    \begin{<theoremname>} ... \end{<theoremname>}   \begin{axiom} ... \end{axiom}
-\end{verbatim}
-
-\begin{definition}[The Definition Environment]\leavevmode\newline
-    From WikipediA: A definition is used to give a precise meaning to a new term, by describing a condition which unambiguously qualifies what a mathematical term is and is not.
-\end{definition}
-
-\begin{theorem}[The Theorem Environment]\leavevmode\newline
-    From WikipediA: A theorem is a statement that has been proved, or can be proved.
-\end{theorem}
-
-\begin{lemma}[The Lemma Environment]\leavevmode\newline
-    From WikipediA: In mathematics, informal logic and argument mapping, a lemma (pl.: lemmas or lemmata) is a generally minor, proven proposition which is used as a stepping stone to a larger result. For that reason, it is also known as a ``helping theorem'' or an ``auxiliary theorem''.
-\end{lemma}
-
-\begin{corollary}[The Corollary Environment]\leavevmode\newline
-    From WikipediA: A corollary is a theorem of less importance which can be readily deduced from a previous, more notable statement.
-\end{corollary}
-
-\begin{proposition}[The Proposition Environment]\leavevmode\newline
-    From WikipediA: A proposition is a central concept in the philosophy of language, semantics, logic, and related fields, often characterized as the primary bearer of truth or falsity.
-\end{proposition}
-
-\begin{postulate}[The Postulate Environment]\leavevmode\newline
-    From WikipediA: A postulate is a statement everyone agrees to be correct.
-\end{postulate}
-
-\begin{axiom}[The Axiom Environment]\leavevmode\newline
-    From WikipediA: An axiom is a statement that is taken to be true, to serve as a premise or starting point for further reasoning and arguments.
-\end{axiom}
-
-\begin{remark}[The Remark Environment]\leavevmode\newline
-    From Math StackExchange: The remark device is used for material that is is too long to be included in parentheses, while it deserves greater prominence than a footnote.
-\end{remark}
-
-\begin{example}
-    From Cambridge Dictionary: The example is a way of helping someone to understand something by showing them how it is used.
-\end{example}
-
-\begin{problem}
-    From Springer: A problem is generally considered to be a task, a situation, or person which is difficult to deal with or control due to complexity and intransparency.
-\end{problem}
-
-\begin{solution}
-    The quick brown fox jumps over the lazy dog.
-\end{solution}

@@ -1,20 +1,32 @@
-\documentclass[
-    math     = newtx,
-    thmstyle = mdframed
-]{litebook}
+\documentclass{litebook}
 
 \cover{\UPLOWFadingImage[trim={0 {.9\paperheight} 0 0},clip]{cover}
                         [trim={0 {.5\paperheight} 0 0},clip]{cover}}
-\title{\scshape The \pkg{LiteBook} Template}
-\subtitle{Version 0.2a \today}
+\title{The \pkg{LiteBook} Template}
+\subtitle{Version 0.2b \today}
 \author{Hsia Mingyu}
 \bioinfo{Hangzhou Dianzi University}
 \press{\scshape\textcolor{teal}{\faIcon{telegram-plane}}Hangzhou in Late Spring 2024}
 
+\mdflist{theorem,   lemma,        definition,   proposition,    postulate;
+         Theorem,   Lemma,        Definition,   Proposition,    Postulate;
+         DarkGreen, MidnightBlue, MidnightBlue, DarkOliveGreen, Indigo}
+\amslist{remark,    example,      problem,      solution;
+         Remark,    Example,      Problem,      Solution;
+         DarkRed,   Teal,         Black,        Black}
+
 \begin{document}
 
-\maketitle\frontmatter\tableofcontents\mainmatter
+\let\theremark=\relax
+\def\theproblem{\arabic{problem}}
+\def\theexample{\arabic{example}}
+\let\thesolution=\relax
+
+\maketitle
+\frontmatter
+\tableofcontents
+\mainmatter
 \input{cha/cha1.tex}
-\input{cha/scha.tex}
+\input{cha/cha2.tex}
 
 \end{document}

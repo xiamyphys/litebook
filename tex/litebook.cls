@@ -19,7 +19,8 @@
 %% ****************************************************************************************************
 % !Mode:: "TeX:UTF-8"
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{litebook}[2024/03/18 v0.2a LiteBook document class]
+\PassOptionsToPackage{quiet}{xeCJK}
+\ProvidesClass{litebook}[2024/03/26 v0.2b LiteBook document class]
 \RequirePackage{kvoptions}
 \RequirePackage{etoolbox}
 \SetupKeyvalOptions{family=LITE, prefix=LITE@, setkeys=\kvsetkeys}
@@ -29,28 +30,23 @@
 \DeclareVoidOption{newtx}{\ekv{math=newtx}}
 \DeclareVoidOption{mtpro2}{\ekv{math=mtpro2}}
 
-\DeclareStringOption[mdframed]{thmstyle}
-\DeclareVoidOption{mdframed}{\ekv{thmstyle=mdframed}}
-\DeclareVoidOption{amsthm}{\ekv{thmstyle=amsthm}}
-
 \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessKeyvalOptions*\relax
-\LoadClass[letterpaper,11pt,openany]{book}
+\LoadClass[letterpaper,11pt,openright]{book}
 
 \RequirePackage{geometry,indentfirst,setspace,enumitem,booktabs,tabularx,diagbox,multicol,multirow}
-\geometry{lmargin = .8 in,rmargin = 1.2 in,tmargin= 1 in,bmargin= 1 in}
+\geometry{lmargin = .8 in,rmargin = 1.2 in,tmargin = 1 in,bmargin = 1 in}
 \setlength{\headheight}{13.6pt}
 
 \RequirePackage{lipsum,hologo}
 \hologoFontSetup{general=\sffamily}
 \RequirePackage{ifxetex}
 \ifXeTeX
-  \RequirePackage[quiet]{xeCJK}
+  \RequirePackage{ctex}
   \RequirePackage[quiet,no-math]{fontspec}
   \RequirePackage{zhlipsum}
-  \setlength{\parindent}{2em}
 \else
-  \setlength{\parindent}{2ex}
+  \usepackage[T1]{fontenc}
 \fi
 
 \RequirePackage{graphics,graphicx}
@@ -58,9 +54,9 @@
 
 \RequirePackage[labelsep=period,labelfont={bf,sf},font=small]{caption}
 \RequirePackage[nokeyprefix]{refstyle}
-\newref{eq}{refcmd=(\ref{#1}),name={\sffamily Eq.~}}
-\newref{fig}{name={\sffamily\bfseries Figure~}}
-\newref{tab}{name={\sffamily\bfseries Table~}}
+\newref{eq}{refcmd=(\ref{#1}),name={\sffamily eq.~},Name={\sffamily Eq.~}}
+\newref{fig}{name={\sffamily fig.~},Name={\sffamily Fig.~}}
+\newref{tab}{name={\sffamily tab.~},Name={\sffamily Tab.~}}
 
 \RequirePackage{tocloft}
 \setlength{\cftbeforetoctitleskip}{6\p@}
@@ -84,7 +80,6 @@
     \huge\bfseries\sffamily #1\par\nobreak
     \vskip 36\p@
 }}
-
 \def\@makeschapterhead#1{%
   \gdef\s@chapter{#1}
   \addcontentsline{toc}{chapter}{\s@chapter}
@@ -95,35 +90,40 @@
     \huge \bfseries \sffamily  #1\par\nobreak
     \vskip 40\p@
 }}
-
 \let\cleardoublepage=\clearpage
-\makeatletter
 \renewcommand*{\cleardoublepage}{\clearpage\if@twoside \ifodd\c@page\else
+\ifnum \thechapter=0
   \vspace*{\fill}
     {\centering\itshape\Large This page was intentionally left blank.\par}
   \vspace{\fill}
-\thispagestyle{empty}
-\newpage
+\else
+  \clearpage%
+  \thispagestyle{empty}%
+  \null\clearpage
+\fi
+\thispagestyle{empty}\newpage
 \if@twocolumn\hbox{}\newpage\fi\fi\fi}
 
 \RequirePackage{fancyhdr}
 \pagestyle{fancy}
-  \fancyhead[OL]{\textsc{\sffamily\nouppercase\leftmark}}
-  \fancyhead[OR]{\sffamily\thepage}
-  \fancyhead[ER]{\textsc{\sffamily\nouppercase\rightmark}}
-  \fancyhead[EL]{\sffamily\thepage}
-  \lfoot{}\cfoot{}\rfoot{}
+  \let\oldheadrule\headrule
+  \renewcommand{\headrule}{{\color{gray}\oldheadrule}}
+  \renewcommand{\headrulewidth}{1pt}
+  \fancyhead[OL]{\textsc{\color{darkgray}\sffamily\nouppercase\leftmark}}
+  \fancyhead[OR]{\color{darkgray}\sffamily\thepage}
+  \fancyhead[ER]{\textsc{\color{darkgray}\sffamily\nouppercase\rightmark}}
+  \fancyhead[EL]{\color{darkgray}\sffamily\thepage}
+  \cfoot{}
 
 \RequirePackage{tikz}
 \usetikzlibrary{arrows,tikzmark,patterns,calc}
 \RequirePackage{fadingimage}
 \tikzset{>=stealth',
 every picture/.append style={%
-    line join=round,
-    line cap=round,
+    line join = round,
+    line cap  = round,
     thick
-  }
-}
+}}
 
 \RequirePackage[fixed]{fontawesome5}
 \AddToHook{cmd/faIcon/before}{%
@@ -132,14 +132,10 @@ every picture/.append style={%
 \AddToHook{cmd/faIcon/after}{\endgroup}
 
 \RequirePackage[svgnames]{xcolor}
-\definecolor{pkgcolor}{Hsb}{103,.8,.5}
-\definecolor{moducolor}{Hsb}{290,.8,.5}
-\definecolor{cmdcolor}{Hsb}{188,.8,.5}
-\RequirePackage[colorlinks,linkcolor=cmdcolor,urlcolor=pkgcolor]{hyperref}
-\def\pkg#1{\texorpdfstring{\textcolor{pkgcolor}{%
-    \href{https://ctan.org/pkg/#1}{\textsf{#1}}}}{“#1”}}
-\def\mode#1{\texorpdfstring{\textcolor{moducolor}{\textsf{#1}}}{“#1”}}
-\def\cmd#1{\texorpdfstring{\textcolor{cmdcolor}{\textsf{#1}}}{“#1”}}
+\RequirePackage[colorlinks,linkcolor=DarkGreen,urlcolor=Teal]{hyperref}
+\def\pkg#1{\textcolor{DarkGreen}{\textsf{#1}}}
+\def\mode#1{\textcolor{Indigo}{\textsf{#1}}}
+\def\cmd#1{\textcolor{MidnightBlue}{\texttt{\string#1}}}
 
 \RequirePackage{datetime}\yyyymmdddate
 \def\subtitle#1{\gdef\@subtitle{#1}}
@@ -153,11 +149,7 @@ every picture/.append style={%
 \renewcommand*\maketitle{%
 \begin{titlepage}
   \newgeometry{margin = 0 in}
-    \ifcsname @cover\endcsname
-      \@cover\vskip75\p@
-    \else
-      \vspace*{75\p@}
-    \fi
+    \ifcsname @cover\endcsname\@cover\vskip80\p@\else\vspace*{80\p@}\fi
     \parindent=0pt
     \centering\sffamily\bfseries
     \HUge\@title\normalfont
@@ -171,7 +163,7 @@ every picture/.append style={%
       \parbox[t]{\textwidth}{\centering
         \sffamily\bfseries\large\@press\normalfont\vskip75\p@}\fi
     \clearpage
-    \vspace*{\fill}\normalfont
+    \vspace*{\fill}
       {\centering \Huge\sffamily\bfseries\itshape\@title\par}
     \vspace{\fill}
   \restoregeometry
@@ -183,58 +175,26 @@ every picture/.append style={%
   \RequirePackage[mtpscr,mtpccal,mtpfrak]{mtpro2}
   \RequirePackage[mono=false]{libertine}
 }{\relax}
-
 \ifdefstring{\LITE@math}{newtx}{%
   \RequirePackage[libertine,mono=false]{newtx}
 }{\relax}
-
 \let\openbox\relax\def\hmmax{0}\def\bmmax{0}
 \RequirePackage{physics2,bm,fixdif,derivative,cancel,extarrows,siunitx,nicefrac,nicematrix}
 \usephysicsmodule{ab,braket,diagmat,doubleprod,xmat,ab.legacy,op.legacy}
 \RequirePackage[e]{esvect}
-\def\i{\mathrm i}\def\e{\mathrm e}\def\T{\mathsf T}
-\numberwithin{equation}{section}
-
-\RequirePackage{amsthm,mdframed,listofitems}
-\setsepchar{;/,}\ignoreemptyitems
-\theoremstyle{definition}
-\def\th@definition{\thm@notefont{}\normalfont}
-\readlist*\thmlist{%
-  theorem,   lemma,        definition,   corollary, proposition, postulate, axiom,  remark;
-  DarkGreen, MidnightBlue, MidnightBlue, Olive,     Olive,       Indigo,    Indigo, DarkRed
+\def\i{\mathrm i}
+\def\e{\mathrm e}
+\def\T{\mathsf T}
+\AtBeginDocument{%
+  \setlength{\abovedisplayskip}{9pt}
+  \setlength{\belowdisplayskip}{9pt}
 }
-\ifnum \listlen\thmlist[1]<\listlen\thmlist[2]
-  \def\thmnum{\listlen\thmlist[1]}
-\else
-  \def\thmnum{\listlen\thmlist[2]}
-\fi
-
-\ifdefstring{\LITE@thmstyle}{mdframed}{%
-  \foreach \x in {1,...,\thmnum}{\expandafter\xdef\csname\x\x\endcsname{\noexpand
-  \newmdtheoremenv[
-    skipabove=0pt,          skipbelow=0pt,
+\numberwithin{equation}{section}
+\RequirePackage[amscounter=section,amsstyle=definition,
+                mdfcounter=section,mdfstyle=mdflist]{thmlist}
+\mdfsetup{skipabove=2pt,skipbelow=2pt}
+\mdfdefinestyle{mdflist}{%
     hidealllines=true,      leftline=true,
-    linewidth=.5ex,         linecolor=\thmlist[2,\x],
-    innerleftmargin=1.5ex,  innerrightmargin=0pt,
-    innertopmargin=-1.5ex,  innerbottommargin=.5ex]
-  {\thmlist[1,\x]}
-  {\noexpand\color{\thmlist[2,\x]}\noexpand\sffamily\expandafter\MakeUppercase\expanded{\thmlist[1,\x]}}[chapter]
-}}
-}{\relax}
-
-\ifdefstring{\LITE@thmstyle}{amsthm}{%
-  \foreach \x in {1,...,\thmnum}{\expandafter\xdef\csname\x\x\endcsname{\noexpand
-  \newtheorem
-  {\thmlist[1,\x]}
-  {\noexpand\color{\thmlist[2,\x]}\noexpand\sffamily\expandafter\MakeUppercase\expanded{\thmlist[1,\x]}}[chapter]
-}}
-}{\relax}
-
-\foreach \x in {1,...,\thmnum}{\csname\x\x\endcsname}
-\let\theremark=\relax
-
-\newtheorem{example}{\sffamily\color{Teal} Example}[chapter]
-\def\theexample{\arabic{example}}
-\newtheorem{problem}{\sffamily Problem}[chapter]
-\def\theproblem{\arabic{problem}}
-\newtheorem*{solution}{\sffamily Solution}
+    linewidth=.5ex,         innerleftmargin=1.5ex,
+    innerrightmargin=0pt,   innertopmargin=-1.75ex,
+    innerbottommargin=0pt}
